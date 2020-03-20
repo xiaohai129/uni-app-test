@@ -1,41 +1,34 @@
 <template>
-	<view class="content">
-        <image class="logo" src="../../static/logo.png"></image>
-		<view>
-            <text class="title">{{title}}</text>
-        </view>
-	</view>
+	<div class="index-warp">
+		<Test ref="test"></Test>
+	</div>
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-	export default Vue.extend({
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import Test from '@/components/test';
+import { base_getTest } from '@/apis/common';
 
-		},
-		methods: {
-
-		}
-	});
+@Component({
+	components: {
+		Test
+	}
+})
+export default class Index extends Vue {
+	onPageScroll() {
+		base_getTest({
+			username: '',
+			password: ''
+		}).then(res => {
+			console.log(res);
+		})
+	}
+}
 </script>
 
-<style>
-	.content {
-		text-align: center;
-		height: 400upx;
-	}
-    .logo{
-        height: 200upx;
-        width: 200upx;
-        margin-top: 200upx;
-    }
-	.title {
-		font-size: 36upx;
-		color: #8f8f94;
-	}
+<style lang="scss" scoped>
+.index-warp{
+	height: 10000rpx;
+}
 </style>
