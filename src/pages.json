@@ -1,24 +1,36 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/index/record",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/index/launch"
+		},
+		{
+			"path": "pages/index/mine"
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"h5": {
-			"titleNView": {
-				"backgroundColor": "#fff",
-				"buttons": [
-					{
-						"type": "menu"
-					}
-				]
-			}
-		}
-	}
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#ffffff"
+	},
+	"tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [{
+			"pagePath": "pages/index/record",
+			"text": "记录"
+    },{
+			"pagePath": "pages/index/launch",
+			"text": "发起"
+		},{
+			"pagePath": "pages/index/mine",
+			"text": "我的"
+    }]
+}
 }

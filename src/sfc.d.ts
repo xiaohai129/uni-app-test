@@ -4,4 +4,8 @@ declare module "*.vue" {
 }
 
 declare module "@/components/*";
+declare module "@/pages/*";
 declare module "@/apis/*";
+declare module "@/state/*";
+
+declare var wx:any;

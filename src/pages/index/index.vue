@@ -1,34 +1,37 @@
 <template>
-	<div class="index-warp">
-		<Test ref="test"></Test>
-	</div>
+	<view class="index-warp">
+		<cu-custom bgColor="bg-gradual-blue">
+			<block slot="content">{{appName}}</block>
+		</cu-custom>
+		<Home v-show="tabbarIndex=='home'"/>
+		<Other v-show="tabbarIndex=='other'"/>
+		<Tabbar/>
+	</view>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import Test from '@/components/test';
-import { base_getTest } from '@/apis/common';
+import { Component, Vue } from 'vue-property-decorator';
+import Tabbar from '@/components/tabbar';
+import Other from '@/pages/index/other';
+import Home from '@/pages/index/home';
+import appModule from '@/store/modules/appModule';
 
 @Component({
 	components: {
-		Test
+		Tabbar,
+		Other,
+		Home
 	}
 })
 export default class Index extends Vue {
-	onPageScroll() {
-		base_getTest({
-			username: '',
-			password: ''
-		}).then(res => {
-			console.log(res);
-		})
+	get appName(): string {
+    return appModule.appName;
+	}
+	get tabbarIndex(): string {
+		return appModule.tabbarIndex;
 	}
 }
 </script>
 
 <style lang="scss" scoped>
-.index-warp{
-	height: 10000rpx;
-}
 </style>
