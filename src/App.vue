@@ -30,10 +30,21 @@
 	});
 </script>
 
-<style>
+<style lang="scss">
 	@import "colorui/colorui/main.css";
 	@import "colorui/colorui/icon.css";
-	body{
+	body {
 		background-color: #fff;
+	}
+	.no-data {
+		height: 200rpx;
+		width: 100%;
+		line-height: 200rpx;
+		text-align: center;
+		font-size: $uni-font-size-sm;
+		color: $uni-text-color-placeholder;
+	}
+	.text-tips {
+		color: $uni-text-color-placeholder;
 	}
 </style>

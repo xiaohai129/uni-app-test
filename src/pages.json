@@ -1,7 +1,7 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/record",
+			"path": "pages/record/record",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -23,7 +23,7 @@
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [{
-			"pagePath": "pages/index/record",
+			"pagePath": "pages/record/record",
 			"text": "记录"
     },{
 			"pagePath": "pages/index/launch",

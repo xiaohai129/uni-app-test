@@ -1,50 +1,54 @@
 <template>
   <scroll-view class="nav-wrap" scroll-x scroll-with-animation slot="left">
-    <view class="nav-item" v-for="item in datas" :key="item.value" @click="onClickNavItem(item.value)" :class="navIndex==itme.label?'active':''">{{item.label}}</view>
+    <view :class="['nav-item', navIndex==item.value?'active':'']" v-for="item in data" :key="item.value" @click="onClickNavItem" :data-index="item.value">{{item.label}}</view>
     <view class="bottom-slider" :style="{width: bsliderStyle.width, left: bsliderStyle.left}"></view>  
   </scroll-view>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Model } from 'vue-property-decorator';
 
 @Component
 export default class Nav extends Vue {
-  private navIndex = '';
   private bsliderStyle = {
     width: '0px',
     left: '0px'
   };
-  private dataIndex = 0;
-
+  private navItemInfo: {[key:string]: any } = {};
   @Prop({ required: true })
-  private datas!: Array<{value: string, label: string}>;
+  private navIndex!: string;
   @Prop({ required: true })
-  public defaultIndex!: string;
+  private data!: Array<{value: string, label: string}>;
 
-  private created() {
-    this.navIndex = this.defaultIndex;
-    if (this.defaultIndex) {
-      for (let i in this.datas) {
-        let item = this.datas[i];
-        if (item.value == this.defaultIndex) {
-          this.dataIndex = parseInt(i);
-          break;
-        }
-      }
-    }
-  }
   private mounted() {
     const query = uni.createSelectorQuery().in(this);
     query.selectAll('.nav-item').boundingClientRect((data: any) => {
-      console.log(data);
-      let rect = data[this.dataIndex];
-      this.bsliderStyle.width = rect.width + 'px';
-      this.bsliderStyle.left = rect.left + 'px';
+      let navItemInfo: any = {};
+      let checkItem: any;
+      let offsetLeft = 0;
+      data.map((item: any, index: number) => {
+        let key = item.dataset.index;
+        navItemInfo[key] = item;
+        if (index == 0) {
+          offsetLeft = item.left;
+        }
+        if (this.navIndex == key) {
+          this.bsliderStyle = {
+            width: item.width + 'px',
+            left: (item.left - offsetLeft) + 'px'
+          }
+        }
+      });
+      this.navItemInfo = navItemInfo;
     }).exec();
   }
-  private onClickNavItem(index: string) {
-    console.log(index);
+  private onClickNavItem(e:Event) {
+    let target = e.currentTarget as any;
+    let key = target.dataset.index;
+    let info = this.navItemInfo[key];
+    this.bsliderStyle.width = info.width + 'px';
+    this.bsliderStyle.left = target.offsetLeft + 'px';
+    this.$emit('change', key);
   }
 }
 </script>
@@ -52,28 +56,28 @@ export default class Nav extends Vue {
 <style lang="scss" scoped>
 .nav-wrap{
   position: relative;
-  height: 60rpx;
-  &.active{
-    color: $uni-bg-color-bule;
-  }
+  height: 58rpx;
   .nav-item{
     display: inline-block;
-    height: 60rpx;
-    line-height: 60rpx;
+    height: 58rpx;
+    line-height: 58rpx;
     font-size: 32rpx;
     font-weight: bold;
-    margin: 0 15rpx;
+    margin-right: 28rpx;
     box-sizing: border-box;
+    transition: color 0.3s ease-in;
+    &.active{
+      color: $uni-bg-color-bule;
+    }
   }
   .bottom-slider{
     position: absolute;
-    top: 54rpx;
+    top: 50rpx;
     left: 0;
     border-radius: 4rpx;
     height: 8rpx;
-    width: 100%;
-    margin: 0 15rpx;
-    transition: left 0.5s ease-in;
+    width: 0;
+    transition: left 0.3s ease-in, wdith 0.3s ease-in;
     background-color: $uni-bg-color-bule;
   }
   &::after{

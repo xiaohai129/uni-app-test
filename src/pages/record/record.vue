@@ -1,18 +1,23 @@
 <template>
   <view>
     <Navbar>
-      <Nav slot="left" :datas="navData" defaultIndex="list"/>
+      <Nav slot="left" :data="navData" :navIndex="navIndex" @change="onChangeNav"></Nav>
     </Navbar>
+    <view v-show="navIndex == 'calendar'">
+      <RecordCalendar></RecordCalendar>
+    </view>
   </view>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Nav from '@/components/nav';
+import RecordCalendar from '@/pages/record/record-calendar';
 
 @Component({
   components: {
-    Nav
+    Nav,
+    RecordCalendar
   }
 })
 export default class Calendar extends Vue {
@@ -20,6 +25,11 @@ export default class Calendar extends Vue {
     { value: 'calendar', label: '学习日历'},
     { value: 'list', label: '学习列表'}
   ]
+  public navIndex = 'calendar';
+
+  onChangeNav(index: string) {
+    this.navIndex = index;
+  }
 }
 </script>
 
