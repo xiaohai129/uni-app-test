@@ -1,35 +1,48 @@
 {
 	"pages": [
 		{
-			"path": "pages/record/record",
+			"path": "pages/launch",
 			"style": {
-				"navigationStyle": "custom"
+				"navigationBarTitleText": "学习监督系统"
 			}
 		},
 		{
-			"path": "pages/index/launch"
+			"path": "pages/record/record",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
+			}
 		},
 		{
-			"path": "pages/index/mine"
+			"path": "pages/mine",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarBackgroundColor": "#ffffff",
-		"backgroundColor": "#ffffff"
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#ffffff"
 	},
 	"tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+		"color": "#999999",
+		"selectedColor": "#0081ff",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [{
 			"pagePath": "pages/record/record",
+			"iconPath": "static/tabbar/record-icon.png",
+			"selectedIconPath": "static/tabbar/record-icon-active.png",
 			"text": "记录"
     },{
-			"pagePath": "pages/index/launch",
-			"text": "发起"
+			"pagePath": "pages/launch",
+			"iconPath": "static/tabbar/launch-icon.png",
+			"selectedIconPath": "static/tabbar/launch-icon-active.png",
+			"text": "新增"
 		},{
-			"pagePath": "pages/index/mine",
+			"pagePath": "pages/mine",
+			"iconPath": "static/tabbar/mine-icon.png",
+			"selectedIconPath": "static/tabbar/mine-icon-active.png",
 			"text": "我的"
     }]
 }

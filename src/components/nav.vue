@@ -66,6 +66,7 @@ export default class Nav extends Vue {
     margin-right: 28rpx;
     box-sizing: border-box;
     transition: color 0.3s ease-in;
+    color: #333;
     &.active{
       color: $uni-bg-color-bule;
     }

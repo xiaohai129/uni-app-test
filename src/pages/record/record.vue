@@ -1,6 +1,6 @@
 <template>
   <view>
-    <Navbar>
+    <Navbar bgColor="bg-white">
       <Nav slot="left" :data="navData" :navIndex="navIndex" @change="onChangeNav"></Nav>
     </Navbar>
     <view v-show="navIndex == 'calendar'">

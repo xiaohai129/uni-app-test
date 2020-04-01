@@ -1,9 +1,7 @@
 <template>
-  <div class="home-layout">
-    <cu-custom bgColor="bg-gradual-blue">
-			<block slot="content">发起</block>
-		</cu-custom>
-  </div>
+  <view class="layout_wrap">
+    <view class="title">增加学习记录</view>
+  </view>
 </template>
 
 <script lang="ts">
@@ -15,7 +13,12 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.home-layout{
-  height: 2000rpx;
+.layout_wrap{
+  padding: 0 40rpx;
+}
+.title{
+  font-size: 48rpx;
+  font-weight: bold;
+  padding: 20px 0;
 }
 </style>

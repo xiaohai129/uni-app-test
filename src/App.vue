@@ -47,4 +47,7 @@
 	.text-tips {
 		color: $uni-text-color-placeholder;
 	}
+	.layout_wrap{
+		font-size: 24rpx;
+	}
 </style>

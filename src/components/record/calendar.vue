@@ -19,7 +19,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 @Component
 export default class Calendar extends Vue {
   @Prop({type: Object, required: true})
-  private data!: {year: number, month: number, tags: {[key: number]: string}};
+  private data!: {year: number, month: number, tags: {[key: number]: []}};
 
   private days:Object[] = [];
   private dayLabels: string[] = ['一','二','三','四','五','六','日'];
@@ -42,10 +42,14 @@ export default class Calendar extends Vue {
         })
       }
       for (let i=1; i<=dayNum; i++) {
-        let tag = tags[i] || '';
+        let tag = tags[i] || [];
+        let tagText = '';
+        if (tag.length) {
+          tagText = tag.length + '条';
+        }
         days.push({
           day: i,
-          tag: tag 
+          tag: tagText
         });
       }
       let surplus = days.length % 7;
@@ -107,6 +111,9 @@ export default class Calendar extends Vue {
       display: inline-block;
       padding-top: 5rpx;
       text-align: center;
+    }
+    .text-tips{
+      color: $uni-text-color-placeholder;
     }
     .day-item-value{
       display: inline-block;
