@@ -33,16 +33,22 @@
 <style lang="scss">
 	@import "colorui/colorui/main.css";
 	@import "colorui/colorui/icon.css";
-	body {
+	body, page {
 		background-color: #fff;
+		color: #1B1F28;
+		height: 100%;
 	}
 	.no-data {
-		height: 200rpx;
+		height: 260rpx;
 		width: 100%;
-		line-height: 200rpx;
+		margin-top: 80rpx;
+		padding-top: 200rpx;
 		text-align: center;
 		font-size: $uni-font-size-sm;
 		color: $uni-text-color-placeholder;
+		background: url("http://118.25.42.61/images/nodata-img.png") no-repeat center top;
+		background-size: 280rpx;
+		box-sizing: border-box;
 	}
 	.text-tips {
 		color: $uni-text-color-placeholder;
@@ -50,4 +56,13 @@
 	.layout_wrap{
 		font-size: 24rpx;
 	}
+	.form-item_wrap{
+		margin: 10rpx 0;
+		.form-item {
+			padding: 20rpx;
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+
 </style>

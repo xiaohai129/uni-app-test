@@ -6,17 +6,14 @@
         <text class="text-year">{{record.year}}年</text>
       </picker>
       <view class="date-control-wrap">
-        <icon class="cuIcon-fold icon-btn" @click="onClickCalendarTime('prev')"></icon>
-        <icon class="cuIcon-unfold icon-btn" @click="onClickCalendarTime('next')"></icon>
+        <icon class="cuIcon-fold icon-btn" @click="onTapCalendarTime('prev')"></icon>
+        <icon class="cuIcon-unfold icon-btn" @click="onTapCalendarTime('next')"></icon>
       </view>
     </view>
-    <Calendar :data="record"></Calendar>
+    <Calendar :data="record" :selectDay="selectDay" @select="onTapCalendarDay"></Calendar>
     <view class="record-list-wrap">
-      <view class="record-list-item" v-for="item in record.tags[this.seleteDay]" :key="item.id">
-        {{ item }}
-        <text>{{ item.title }}</text>
-        <text>{{ item.time }}</text>
-      </view>
+      <view class="title">{{selectTimeStr}} 学习记录</view>
+      <TextImgCard v-for="item in 10" :key="item"></TextImgCard>
     </view>  
   </view>
 </template>
@@ -24,16 +21,19 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Calendar from '@/components/record/calendar';
+import TextImgCard from '@/components/record/text-img-card';
 
 @Component({
   components: {
-    Calendar
+    Calendar,
+    TextImgCard
   }
 })
 export default class RecordCalendar extends Vue {
   private record = {year: 0, month: 0, tags: {} };
   private initPickerValue = '';
-  private seleteDay!: number;
+  private selectDay:number = 1;
+  private selectTimeStr:string = '';
   created() {
     let date = new Date();
     let record = {year: date.getFullYear(), month: date.getMonth()+1, tags: {
@@ -54,10 +54,11 @@ export default class RecordCalendar extends Vue {
     }};
     this.initPickerValue = record.year + '-' + record.month;
     this.record = record;
-    this.seleteDay = date.getDate();
+    this.onTapCalendarDay(date.getDate());
   }
-  onClickCalendarDay(index: number) {
-    console.log(index);
+  onTapCalendarDay(day: number) {
+    this.selectTimeStr = `${this.record.year}年${this.record.month}月${day}日`;
+    this.selectDay = day;
   }
   onChangeCalendarTime(e: any, dates?: number[]) {
     let date:number[] = [];
@@ -79,7 +80,7 @@ export default class RecordCalendar extends Vue {
       }
     }
   }
-  onClickCalendarTime(type: string) {
+  onTapCalendarTime(type: string) {
     let date: number[]= [];
     let record = this.record;
     if (type == 'next') {
@@ -97,6 +98,7 @@ export default class RecordCalendar extends Vue {
     }
     date = [record.year, record.month];
     this.onChangeCalendarTime(null, date);
+    this.onTapCalendarDay(1);
     return false;
   }
   
@@ -140,8 +142,11 @@ export default class RecordCalendar extends Vue {
     }
   }
   .record-list-wrap{
-    .record-list-item{
-
+    padding-top: 30rpx;
+    .title{
+      font-size: 38rpx;
+      font-weight: bolder;
+      margin: 80rpx 0 40rpx 0;
     }
   }
 </style>

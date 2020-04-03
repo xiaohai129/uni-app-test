@@ -1,7 +1,7 @@
 {
 	"pages": [
 		{
-			"path": "pages/launch",
+			"path": "pages/explore",
 			"style": {
 				"navigationBarTitleText": "学习监督系统"
 			}
@@ -17,6 +17,18 @@
 			"path": "pages/mine",
 			"style": {
 				"navigationBarTitleText": "个人中心"
+			}
+		},
+		{
+			"path": "pages/record/add-record",
+			"style": {
+				"navigationBarTitleText": "新增学习记录"
+			}
+		},
+		{
+			"path": "pages/record/add-task",
+			"style": {
+				"navigationBarTitleText": "新增学习任务"
 			}
 		}
 	],
@@ -35,10 +47,10 @@
 			"selectedIconPath": "static/tabbar/record-icon-active.png",
 			"text": "记录"
     },{
-			"pagePath": "pages/launch",
-			"iconPath": "static/tabbar/launch-icon.png",
-			"selectedIconPath": "static/tabbar/launch-icon-active.png",
-			"text": "新增"
+			"pagePath": "pages/explore",
+			"iconPath": "static/tabbar/explore-icon.png",
+			"selectedIconPath": "static/tabbar/explore-icon-active.png",
+			"text": "首页"
 		},{
 			"pagePath": "pages/mine",
 			"iconPath": "static/tabbar/mine-icon.png",

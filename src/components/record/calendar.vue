@@ -4,7 +4,11 @@
       <view class="label-item" v-for="(item, index) in dayLabels" :key="index">{{item}}</view>
     </view>
     <view class="days-wrap">
-      <view :class="['day-item', item.day?'':'data-fill']" v-for="(item, index) in days" :key="index">
+      <view 
+        :class="['day-item', item.day?'':'data-fill', item.day == selectDay?'select':'']" 
+        v-for="(item, index) in days" :key="index"
+        @tap.stop="onSelectDay(item.day)"
+      >
         <text v-if="item.day" :class="['day-item-text', item.tag.length?'':'text-tips']">{{item.day}}</text>
         <view v-if="item.tag" class="day-item-value">{{item.tag}}</view>
       </view>
@@ -20,6 +24,8 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 export default class Calendar extends Vue {
   @Prop({type: Object, required: true})
   private data!: {year: number, month: number, tags: {[key: number]: []}};
+  @Prop({type: Number, required: true, default: 1})
+  private selectDay!: number;
 
   private days:Object[] = [];
   private dayLabels: string[] = ['一','二','三','四','五','六','日'];
@@ -53,6 +59,9 @@ export default class Calendar extends Vue {
         });
       }
       let surplus = days.length % 7;
+      if (surplus<=0) {
+        surplus = 7;
+      }
       for (let i=0; i<7-surplus; i++) {
         days.push({ 
           day: 0,
@@ -60,6 +69,11 @@ export default class Calendar extends Vue {
         })
       }
       this.days = days;
+    }
+  }
+  private onSelectDay(day:number){
+    if (day && day!=this.selectDay) {
+      this.$emit('select', day);
     }
   }
 }
@@ -102,6 +116,9 @@ export default class Calendar extends Vue {
       &.data-fill{
         background-color: transparent;
       }
+      &.select{
+        box-shadow: 0 0 6rpx $uni-color-blue inset;
+      }
     }
     .no-data{
       height: auto;
@@ -109,7 +126,7 @@ export default class Calendar extends Vue {
     }
     .day-item-text{
       display: inline-block;
-      padding-top: 5rpx;
+      padding-top: 10rpx;
       text-align: center;
     }
     .text-tips{
