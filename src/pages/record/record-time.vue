@@ -16,9 +16,19 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { getRecordList } from '@/apis/record';
+
 
 @Component
 export default class RecordTime extends Vue {
+	created() {
+		getRecordList({
+			pageSize: 10,
+			pageNum: 0
+		}).then(res => {
+			console.log(res);
+		})
+	}
 }
 </script>
 
