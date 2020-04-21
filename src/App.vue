@@ -1,5 +1,8 @@
 <script lang="ts">
 	import Vue from 'vue';
+	import { login } from '@/apis/user';
+	import UserModule from '@/store/modules/userModule';
+
 	export default Vue.extend({
 		mpType: 'app',
 		onLaunch() {
@@ -18,6 +21,26 @@
 					Vue.prototype.Custom = custom;
 					Vue.prototype.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
 					// #endif
+				}
+			});
+			uni.login({
+				provider: 'weixin',
+				success: function (res) {
+					const code = res.code;
+					login({
+						code
+					}).then(res => {
+						let userInfo = res.data;
+						UserModule.setUserInfo(userInfo);
+						const token = userInfo.token;
+						try {
+							uni.setStorageSync('storage_token', token);
+						} catch (e) {
+							uni.showToast({
+								title: '系统错误' 
+							})
+						}
+					})
 				}
 			})
 		},
@@ -64,5 +87,4 @@
 			justify-content: space-between;
 		}
 	}
-
 </style>

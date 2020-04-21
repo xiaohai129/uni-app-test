@@ -16,9 +16,7 @@
       "@dcloudio/types/uni-app"
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["*", "./src/*"]
     },
     "lib": [
       "esnext",

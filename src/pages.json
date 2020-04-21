@@ -16,6 +16,8 @@
 		{
 			"path": "pages/mine",
 			"style": {
+				"navigationBarBackgroundColor": "#0081ff",
+				"navigationBarTextStyle": "wihte",
 				"navigationBarTitleText": "个人中心"
 			}
 		},

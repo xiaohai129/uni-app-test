@@ -1,9 +1,18 @@
-const baseUrl = 'http://127.0.0.1:7001'
+// const baseUrl = 'http://118.25.42.61:7001';
+const baseUrl = 'http://192.168.0.169:7001';
 const defaultParams = {
   timeout: 5000
 }
 
 function request(params: RequestOptions):Promise<any> {
+  const token = uni.getStorageSync('storage_token');
+  if (params.header) {
+    params.header.token = token
+  } else {
+    params.header = {
+      token
+    }
+  }
   return new Promise((resolve, reject) => {
     params.success = (res) => {
       if (res.statusCode != 200) {
@@ -13,7 +22,6 @@ function request(params: RequestOptions):Promise<any> {
       }
     }
     params.fail = (err: any) => {
-      console.log(err);
       let data = {
         message: err.errMsg,
         status: err.statusCode,
@@ -26,7 +34,7 @@ function request(params: RequestOptions):Promise<any> {
   });
   
 }
-export function request_post(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function post(url: string, data: object, params?: RequestOptions):Promise<any> {
   const p = {
     url,
     data,
@@ -34,7 +42,7 @@ export function request_post(url: string, data: object, params?: RequestOptions)
   };
   return request(Object.assign(defaultParams, p, params));
 }
-export function request_get(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function get(url: string, data: object, params?: RequestOptions):Promise<any> {
   const p = {
     url,
     data,
@@ -42,7 +50,7 @@ export function request_get(url: string, data: object, params?: RequestOptions):
   };
   return request(Object.assign(defaultParams, p, params));
 }
-export function request_put(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function put(url: string, data: object, params?: RequestOptions):Promise<any> {
   const p = {
     url,
     data,
@@ -50,7 +58,7 @@ export function request_put(url: string, data: object, params?: RequestOptions):
   };
   return request(Object.assign(defaultParams, p, params));
 }
-export function request_delete(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function del(url: string, data: object, params?: RequestOptions):Promise<any> {
   const p = {
     url,
     data,
