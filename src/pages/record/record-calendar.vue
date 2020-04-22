@@ -10,7 +10,7 @@
         <icon class="cuIcon-unfold icon-btn" @click="onTapCalendarTime('next')"></icon>
       </view>
     </view>
-    <Calendar :data="record" :selectDay="selectDay" @select="onTapCalendarDay"></Calendar>
+    <Calendar :datas="record" :selectDay="selectDay" @select="onTapCalendarDay"></Calendar>
     <view class="record-list-wrap">
       <view class="title">{{selectTimeStr}} 学习记录</view>
       <TextImgCard v-for="item in 10" :key="item"></TextImgCard>

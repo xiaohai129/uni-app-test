@@ -1,6 +1,6 @@
 <template>
   <scroll-view class="nav-wrap" scroll-x scroll-with-animation slot="left">
-    <view :class="['nav-item', navIndex==item.value?'active':'']" v-for="item in data" :key="item.value" @click="onClickNavItem" :data-index="item.value">{{item.label}}</view>
+    <view :class="['nav-item', navIndex==item.value?'active':'']" v-for="item in datas" :key="item.value" @click="onClickNavItem" :data-index="item.value">{{item.label}}</view>
     <view class="bottom-slider" :style="{width: bsliderStyle.width, left: bsliderStyle.left}"></view>  
   </scroll-view>
 </template>
@@ -18,7 +18,7 @@ export default class Nav extends Vue {
   @Prop({ required: true })
   private navIndex!: string;
   @Prop({ required: true })
-  private data!: Array<{value: string, label: string}>;
+  private datas!: Array<{value: string, label: string}>;
 
   private mounted() {
     const query = uni.createSelectorQuery().in(this);

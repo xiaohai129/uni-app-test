@@ -23,7 +23,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 @Component
 export default class Calendar extends Vue {
   @Prop({type: Object, required: true})
-  private data!: {year: number, month: number, tags: {[key: number]: []}};
+  private datas!: {year: number, month: number, tags: {[key: number]: []}};
   @Prop({type: Number, required: true, default: 1})
   private selectDay!: number;
 
@@ -34,12 +34,12 @@ export default class Calendar extends Vue {
   }
   @Watch('data')
   private getCalendarData() {
-    if (this.data.year && this.data.month) {
+    if (this.datas.year && this.datas.month) {
       let days:object[] = [];
-      let date = new Date(this.data.year, this.data.month, 0);
-      let tags = this.data.tags;
+      let date = new Date(this.datas.year, this.datas.month, 0);
+      let tags = this.datas.tags;
       let dayNum = date.getDate();
-      let dateOne = new Date(this.data.year, this.data.month-1, 1);
+      let dateOne = new Date(this.datas.year, this.datas.month-1, 1);
       let dayOne = (dateOne.getDay() + 6) % 7;
       for (let i=0; i<dayOne; i++) {
         days.push({ 
