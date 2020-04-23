@@ -24,9 +24,10 @@
           </view>
         </view>
 			</view>
-      <view class="cu-form-group form-content">
+      <view class="cu-form-group form-content" @tap="onShowEditor">
 				<view class="title">内容</view>
-				<editor placeholder="请输入您的学习内容" v-model="formData.content"></editor >
+        <rich-text :nodes="htmlContent" v-if="htmlContent"></rich-text>
+        <view v-else class="content-placeholder">请输入您的学习内容...</view>
 			</view>
     </view>
     <view class="cu-list">
@@ -50,7 +51,6 @@
 				</view>
 			</view>
     </view>
-    <jyf-parser :html="html" ref="article"></jyf-parser>
 		<view class="padding">
       <button class="cu-btn block bg-blue margin-tb-sm lg" @click="onAddRecord">立即新增</button>
       <button class="cu-btn block bg-blue-op margin-tb-sm lg">保存信息</button>
@@ -62,13 +62,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { addRecord } from '@/apis/record';
 import { getColor } from '@/utils';
-import parser from "@/components/jyf-parser";
+import recordMoudule from '@/store/modules/recordMoudule';
 
-@Component({
-  components: {
-    "jyf-parser": parser
-  },
-})
+
+@Component
 export default class AddRecord extends Vue {
   private imgList: string[] = [];
   private imgMaxNum: number = 8;
@@ -81,13 +78,11 @@ export default class AddRecord extends Vue {
     title: '',
     content: ''
   }
-  private html = `
-    <h2>12323</h2>
-    <h2>12323</h2>
-    <h2>12323</h2>
-    <h2>12323</h2>
-  `;
+  private editorCtx: any = null;
 
+  get htmlContent() {
+    return recordMoudule.record.content;
+  }
   private onPreviewImage(e: any) {
     uni.previewImage({
       urls: this.imgList,
@@ -111,6 +106,16 @@ export default class AddRecord extends Vue {
       }
     });
   }
+  private onShowEditor() {
+    uni.navigateTo({
+      url: '/pages/record/add-record-content'
+    })
+  }
+  private onEditorReady() {
+    uni.createSelectorQuery().select('#editor').context((res) => {
+      this.editorCtx = res.context
+    }).exec()
+  }
   private onDelImage(e: any) {
 		this.imgList.splice(e.currentTarget.dataset.index, 1);
   }
@@ -119,6 +124,7 @@ export default class AddRecord extends Vue {
     if (taskId > 0) {
       this.formData.taskId = taskId as any;
     }
+    this.formData.content = this.htmlContent;
     let rules = {
       title: '学习标题',
       content: '学习内容'
@@ -127,7 +133,13 @@ export default class AddRecord extends Vue {
       return;
     }
     addRecord(this.formData).then(res => {
-      console.log(res);
+      uni.showToast({
+        title: '学习记录添加成功',
+        icon: 'success'
+      });
+      uni.switchTab({
+        url: '/pages/record/record'
+      })
     })
   }
   private onSelectLabel(index: number) {
@@ -167,12 +179,16 @@ export default class AddRecord extends Vue {
     .title{
       line-height: 100rpx;
     }
-    editor{
-      padding: 28rpx 0;
+    .content-placeholder{
       font-size: 30rpx;
-      &::placeholder{
-        font-style: normal;
-      }
+      padding: 28rpx 0 60px 0;
+      flex: 1;
+      color: $uni-text-color-placeholder;
+    }
+    rich-text{
+      flex: 1;
+      padding: 28rpx 0 60px 0;
+      font-size: 30rpx;
     }
   }
 }

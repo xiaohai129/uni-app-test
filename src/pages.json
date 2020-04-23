@@ -28,6 +28,14 @@
 			}
 		},
 		{
+			"path": "pages/record/add-record-content",
+			"style": {
+				"navigationBarTitleText": "新增学习记录",
+				"disableScroll": true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/record/add-task",
 			"style": {
 				"navigationBarTitleText": "新增学习任务"
@@ -41,23 +49,27 @@
 	"tabBar": {
 		"color": "#999999",
 		"selectedColor": "#0081ff",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [{
-			"pagePath": "pages/record/record",
-			"iconPath": "static/tabbar/record-icon.png",
-			"selectedIconPath": "static/tabbar/record-icon-active.png",
-			"text": "记录"
-    },{
-			"pagePath": "pages/explore",
-			"iconPath": "static/tabbar/explore-icon.png",
-			"selectedIconPath": "static/tabbar/explore-icon-active.png",
-			"text": "首页"
-		},{
-			"pagePath": "pages/mine",
-			"iconPath": "static/tabbar/mine-icon.png",
-			"selectedIconPath": "static/tabbar/mine-icon-active.png",
-			"text": "我的"
-    }]
-}
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/record/record",
+				"iconPath": "static/tabbar/record-icon.png",
+				"selectedIconPath": "static/tabbar/record-icon-active.png",
+				"text": "记录"
+			},
+			{
+				"pagePath": "pages/explore",
+				"iconPath": "static/tabbar/explore-icon.png",
+				"selectedIconPath": "static/tabbar/explore-icon-active.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/mine",
+				"iconPath": "static/tabbar/mine-icon.png",
+				"selectedIconPath": "static/tabbar/mine-icon-active.png",
+				"text": "我的"
+			}
+		]
+	}
 }
