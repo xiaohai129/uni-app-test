@@ -1,10 +1,10 @@
-// const baseUrl = 'http://118.25.42.61:7001';
-const baseUrl = 'http://192.168.0.169:7001';
+const baseUrl = 'http://118.25.42.61:7001';
+// const baseUrl = 'http://192.168.0.169:7001';
 const defaultParams = {
   timeout: 5000
 }
 
-function request(params: RequestOptions):Promise<any> {
+function request(params: RequestOptions): Promise<any> {
   const token = uni.getStorageSync('storage_token');
   if (params.header) {
     params.header.token = token
@@ -32,9 +32,9 @@ function request(params: RequestOptions):Promise<any> {
     params.url = baseUrl + params.url;
     return uni.request(params);
   });
-  
+
 }
-export function post(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function post(url: string, data: object, params?: RequestOptions): Promise<any> {
   const p = {
     url,
     data,
@@ -42,7 +42,7 @@ export function post(url: string, data: object, params?: RequestOptions):Promise
   };
   return request(Object.assign(defaultParams, p, params));
 }
-export function get(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function get(url: string, data: object, params?: RequestOptions): Promise<any> {
   const p = {
     url,
     data,
@@ -50,7 +50,7 @@ export function get(url: string, data: object, params?: RequestOptions):Promise<
   };
   return request(Object.assign(defaultParams, p, params));
 }
-export function put(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function put(url: string, data: object, params?: RequestOptions): Promise<any> {
   const p = {
     url,
     data,
@@ -58,7 +58,7 @@ export function put(url: string, data: object, params?: RequestOptions):Promise<
   };
   return request(Object.assign(defaultParams, p, params));
 }
-export function del(url: string, data: object, params?: RequestOptions):Promise<any> {
+export function del(url: string, data: object, params?: RequestOptions): Promise<any> {
   const p = {
     url,
     data,

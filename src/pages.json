@@ -40,6 +40,12 @@
 			"style": {
 				"navigationBarTitleText": "新增学习任务"
 			}
+		},
+		{
+			"path": "pages/record/add-label",
+			"style": {
+				"navigationBarTitleText": "新增学习标签"
+			}
 		}
 	],
 	"globalStyle": {

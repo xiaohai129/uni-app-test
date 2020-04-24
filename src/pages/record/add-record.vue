@@ -83,6 +83,12 @@ export default class AddRecord extends Vue {
   get htmlContent() {
     return recordMoudule.record.content;
   }
+  onShow() {
+    this.formData = recordMoudule.record;
+  }
+  onUnload() {
+    recordMoudule.setRecord(this.formData);
+  }
   private onPreviewImage(e: any) {
     uni.previewImage({
       urls: this.imgList,
@@ -137,6 +143,11 @@ export default class AddRecord extends Vue {
         title: '学习记录添加成功',
         icon: 'success'
       });
+      this.formData = {
+        taskId: '',
+        title: '',
+        content: ''
+      }
       uni.switchTab({
         url: '/pages/record/record'
       })

@@ -1,6 +1,6 @@
 <template>
   <view>
-    <Navbar bgColor="bg-white">
+    <Navbar bgcolor="bg-white">
       <Nav slot="left" :datas="navData" :navIndex="navIndex" @change="onChangeNav"></Nav>
     </Navbar>
     <view v-show="navIndex == 'calendar'">
@@ -27,10 +27,10 @@ import RecordTime from '@/pages/record/record-time';
 })
 export default class Calendar extends Vue {
   private navData = [
-    { value: 'calendar', label: '学习日历'},
-    { value: 'timeline', label: '学习列表'}
-  ]
-  public navIndex = 'timeline';
+    { value: 'calendar', label: '学习日历' },
+    { value: 'timeline', label: '学习列表' }
+  ];
+  public navIndex = 'calendar';
 
   onChangeNav(index: string) {
     this.navIndex = index;
@@ -39,12 +39,12 @@ export default class Calendar extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.nav-wrap{
+.nav-wrap {
   width: 100%;
 }
 </style>
 <style lang="scss">
-.nav-wrap{
+.nav-wrap {
   width: 100%;
 }
 </style>

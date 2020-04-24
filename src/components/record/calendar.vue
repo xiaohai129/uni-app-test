@@ -4,12 +4,16 @@
       <view class="label-item" v-for="(item, index) in dayLabels" :key="index">{{item}}</view>
     </view>
     <view class="days-wrap">
-      <view 
-        :class="['day-item', item.day?'':'data-fill', item.day == selectDay?'select':'']" 
-        v-for="(item, index) in days" :key="index"
+      <view
+        :class="['day-item', item.day?'':'data-fill', item.day == selectDay?'select':'']"
+        v-for="(item, index) in days"
+        :key="index"
         @tap.stop="onSelectDay(item.day)"
       >
-        <text v-if="item.day" :class="['day-item-text', item.tag.length?'':'text-tips']">{{item.day}}</text>
+        <text
+          v-if="item.day"
+          :class="['day-item-text', item.tag.length?'':'text-tips']"
+        >{{item.day}}</text>
         <view v-if="item.tag" class="day-item-value">{{item.tag}}</view>
       </view>
       <view class="no-data" v-if="days.length<=0">无当前年月信息</view>
@@ -22,36 +26,36 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 @Component
 export default class Calendar extends Vue {
-  @Prop({type: Object, required: true})
-  private datas!: {year: number, month: number, tags: {[key: number]: []}};
-  @Prop({type: Number, required: true, default: 1})
+  @Prop({ type: Object, required: true })
+  private datas!: { year: number; month: number; tags: { [key: number]: [] } };
+  @Prop({ type: Number, required: true, default: 1 })
   private selectDay!: number;
 
-  private days:Object[] = [];
-  private dayLabels: string[] = ['一','二','三','四','五','六','日'];
+  private days: Object[] = [];
+  private dayLabels: string[] = ['一', '二', '三', '四', '五', '六', '日'];
   created() {
     this.getCalendarData();
   }
-  @Watch('data')
+  @Watch('datas')
   private getCalendarData() {
     if (this.datas.year && this.datas.month) {
-      let days:object[] = [];
+      let days: object[] = [];
       let date = new Date(this.datas.year, this.datas.month, 0);
       let tags = this.datas.tags;
       let dayNum = date.getDate();
-      let dateOne = new Date(this.datas.year, this.datas.month-1, 1);
+      let dateOne = new Date(this.datas.year, this.datas.month - 1, 1);
       let dayOne = (dateOne.getDay() + 6) % 7;
-      for (let i=0; i<dayOne; i++) {
-        days.push({ 
+      for (let i = 0; i < dayOne; i++) {
+        days.push({
           day: 0,
           tag: ''
-        })
+        });
       }
-      for (let i=1; i<=dayNum; i++) {
-        let tag = tags[i] || [];
+      for (let i = 1; i <= dayNum; i++) {
+        let tag = tags[i];
         let tagText = '';
-        if (tag.length) {
-          tagText = tag.length + '条';
+        if (tag) {
+          tagText = tag + '条';
         }
         days.push({
           day: i,
@@ -59,20 +63,20 @@ export default class Calendar extends Vue {
         });
       }
       let surplus = days.length % 7;
-      if (surplus<=0) {
+      if (surplus <= 0) {
         surplus = 7;
       }
-      for (let i=0; i<7-surplus; i++) {
-        days.push({ 
+      for (let i = 0; i < 7 - surplus; i++) {
+        days.push({
           day: 0,
           tag: ''
-        })
+        });
       }
       this.days = days;
     }
   }
-  private onSelectDay(day:number){
-    if (day && day!=this.selectDay) {
+  private onSelectDay(day: number) {
+    if (day && day != this.selectDay) {
       this.$emit('select', day);
     }
   }
@@ -86,13 +90,13 @@ export default class Calendar extends Vue {
     width: $itemSize;
     height: $itemSize;
     margin: 1rpx;
-    background-color: #F3F3F5;
+    background-color: #f3f3f5;
   }
-  .days-label{
+  .days-label {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20rpx;
-    .label-item{
+    .label-item {
       @include item();
       height: 78rpx;
       line-height: 78rpx;
@@ -102,37 +106,37 @@ export default class Calendar extends Vue {
       text-align: center;
     }
   }
-  .days-wrap{
+  .days-wrap {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    .day-item{
+    .day-item {
       @include item();
       font-size: 24rpx;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      &.data-fill{
+      &.data-fill {
         background-color: transparent;
       }
-      &.select{
+      &.select {
         box-shadow: 0 0 6rpx $uni-color-blue inset;
       }
     }
-    .no-data{
+    .no-data {
       height: auto;
       line-height: auto;
     }
-    .day-item-text{
+    .day-item-text {
       display: inline-block;
       padding-top: 10rpx;
       text-align: center;
     }
-    .text-tips{
+    .text-tips {
       color: $uni-text-color-placeholder;
     }
-    .day-item-value{
+    .day-item-value {
       display: inline-block;
       color: #fff;
       border-radius: 20rpx;

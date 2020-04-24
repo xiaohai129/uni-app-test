@@ -1,7 +1,7 @@
 <template>
   <view class="cu-custom" :style="{height: CustomBar + 'px'}">
     <view
-      class="cu-bar fixed"
+      class="cu-bar fixed bg-white"
       :style="style"
       :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]"
     >
@@ -67,6 +67,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

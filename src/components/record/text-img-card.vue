@@ -1,45 +1,51 @@
 <template>
   <view class="cu-card article">
     <view class="cu-item">
-      <view class="title"><view class="text-cut">无意者 烈火焚身;以正义的烈火拔出黑暗。我有自己的正义，见证至高的烈火吧。</view></view>
-      <view class="content">
-        <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg"
-          mode="aspectFill"></image>
-        <view class="desc">
-          <view class="text-content"> 折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！真正的恩典因不完整而美丽，因情感而真诚，因脆弱而自由！</view>
-          <view>
-            <view class="cu-tag bg-red light sm round">正义天使</view>
-            <view class="cu-tag bg-green light sm round">史诗</view>
-          </view>
-        </view>
+      <view class="title">
+        <view class="text-cut">{{datas.title}}</view>
+      </view>
+      <view class="content" v-if="datas.label">
+        <view
+          class="cu-tag light sm round"
+          :class="['bg-'+item.color]"
+          v-for="item in datas.label"
+          :key="item.id"
+        >{{item.name}}</view>
       </view>
     </view>
   </view>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-
-@Component
-export default class  extends Vue {
-}
+import Vue from 'vue';
+export default Vue.extend({
+  props: {
+    datas: Object
+  }
+});
 </script>
 
 <style lang="scss" scoped>
-.cu-card .cu-item{
+.cu-card {
+  background-color: $uni-bg-color-grey;
+  margin-bottom: 20rpx;
+}
+.cu-card .cu-item {
   margin: 0;
-  .title, .content{
+  background-color: none;
+  .title,
+  .content {
     padding: 0;
   }
-  .title{
+  .title {
     line-height: 60rpx;
   }
   .content {
-    image{
+    image {
       width: 200rpx;
       height: 150rpx;
     }
-    .text-content{
+    .text-content {
       line-height: 35rpx;
       height: 105rpx;
       @include multiEllipsis(3);

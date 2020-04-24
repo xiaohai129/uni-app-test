@@ -6,3 +6,6 @@ export function getRecordList(data: any) {
 export function addRecord(data: any) {
   return http.post('/record', data);
 }
+export function getRecordStatis(data: any) {
+  return http.post('/record/statis', data);
+}
